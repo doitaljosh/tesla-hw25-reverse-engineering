@@ -1,0 +1,13 @@
+HW2.5 FTDI serial port map
+
+Port 0 <---> No output (maybe a debug console for LB?)
+Port 1 <---> Tegra B serial console
+Port 2 <---> Tegra A serial console
+Port 3 <---> Lots of binary data (Ublox GPS receiver?)
+
+The serial debug console connects to UARTB on both Tegra SoCs, 
+and only outputs bootloader logs. As soon at the Linux kernel 
+executes, there is no output. After looking at the device tree, 
+it's evident that Tesla disables UARTB on production firmware.
+Hard-wiring to the SPI flash and patching the DTB on an unfused
+board will allow you to re-enable UARTB.

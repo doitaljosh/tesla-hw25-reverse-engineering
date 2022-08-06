@@ -1,0 +1,99 @@
+I> Welcome to MB2(TBoot-BPMP)(version: 01.00.160913-t186-E-00.00-embedded-74a31340)
+I> Default Heap @ [0xd486400 - 0xd488400]
+I> DMA Heap @ [0x84410000 - 0x85410000]
+I> Dumping GR Value for stage 0
+I> bit @ 0xd480000
+I> BR-BCT relocated to 0x85410000
+I> Boot-device: QSPI
+I> Qspi using bpmp-dma
+I> Qspi clock source : pllp
+I> Qspi initialized successfully
+I> Found 37 partitions in 00030000 device
+I> Loading partition bpmp-fw at 0xf7600000
+I> Reading two headers - addr:0xf7600000 blocks:1
+I> Addr: 0xf7600000, start-block: 16896, num_blocks: 1
+I> Binary(16) of size 524480 is loaded @ 0xf7600000
+I> Loading partition bpmp-fw-dtb at 0xf77f0000
+I> Reading two headers - addr:0xf77f0000 blocks:1
+I> Addr: 0xf77f0000, start-block: 19968, num_blocks: 1
+I> Binary(17) of size 52784 is loaded @ 0xf77f3000
+I> BPMP-FW load address = 0xf7600000
+I> BPMP-FW DTB load address = 0x501f3000
+I> Loading SCE-FW ...
+I> Loading partition sce-fw at 0xf7800000
+I> Reading two headers - addr:0xf7800000 blocks:1
+I> Addr: 0xf7800000, start-block: 20992, num_blocks: 1
+I> Binary(12) of size 65440 is loaded @ 0xf7800000
+I> Loading APE-FW ...
+I> Loading partition adsp-fw at 0xf7000000
+I> Reading two headers - addr:0xf7000000 blocks:1
+I> Addr: 0xf7000000, start-block: 22016, num_blocks: 1
+I> Binary(11) of size 843856 is loaded @ 0xf7000000
+I> Copy BTCM section
+I> Loading partition cpu-bootloader at 0x96000000
+I> Reading two headers - addr:0x96000000 blocks:1
+I> Addr: 0x96000000, start-block: 30208, num_blocks: 1
+I> Binary(13) of size 147584 is loaded @ 0x96000000
+I> MB2-params @ 0x84400000
+I> CPUBL-params @ 0x84400000
+I> CPU-BL loaded at : 0x96000000
+I> Loading TOS ...
+I> Loading partition secure-os at 0x84412400
+I> Reading two headers - addr:0x84412400 blocks:1
+I> Addr: 0x84412400, start-block: 31232, num_blocks: 1
+I> Binary(14) of size 951808 is loaded @ 0x84412400
+I> TLK boot-params @ 0xf7fc0000
+I> TLK params prepared
+I> Loading EKS ...
+I> Loading partition eks at 0x84a12600
+I> Reading two headers - addr:0x84a12600 blocks:1
+I> Addr: 0x84a12600, start-block: 39424, num_blocks: 1
+I> Binary(15) of size 1344 is loaded @ 0x84a12600
+I> EKS (length: 0x5000) @ 0x84a12600
+I> Copied encrypted keys
+I> Copying Monitor (length: 0xd258) from 0x84412600 to 0x40000000
+I> Erasing Monitor @ 0x84412600
+I> Unhalting SCE
+I> Waypoint2-ACK: 0x5200a37c
+I> MB2(TBoot-BPMP) done
+
+I> Dumping GR Value for stage 1
+NOTICE:  BL31: v1.2(release):37d171f
+NOTICE:  BL31: Built : 22:23:20, Jun  8 2017
+Added profiling carveout to mapping...
+Primary Memory: 96100000, +5fb00000
+Extended Memory: f6600000, +200000
+spi_slave: Failed to query node offset
+
+QbDataDrivenInit() Successful
+device.c 204 -1778253674
+QbGetBootConfigId choosing a bank
+QbGetBootConfigId found ENV.
+QbGetBootConfigId found valid boot env record at offset 0x5800.
+QbGetBootConfigId all is well.  booting online bank KERNEL_A.
+Loading Kernel Image
+WARNING: SECURITY_MODE is not blown
+LZF: Doing Validation/Decrpytion, loading  and decompression of binary in parallel
+WARNING: SECURITY_MODE is not blown
+Decompressed using LZF algorithm
+decomp time 116632, read time 7444, wait time 5252 Total Time 602672
+Decompressed 17683384 bytes
+Loading Ramdisk Image
+WARNING: SECURITY_MODE is not blown
+Doing Validation/Decrpytion of the Binary and loading in parallel
+WARNING: SECURITY_MODE is not blown
+Loaded and stream validated
+read time 4737, wait time 355 Crypto Ops time 136875
+Total Time 142025
+Decompressed 2765328 bytes
+Loading DTB image
+WARNING: SECURITY_MODE is not blown
+Doing Validation/Decrpytion of the Binary
+WARNING: SECURITY_MODE is not blown
+220 QbLoadAndBootKernel kernel addr 80080000 Ramdisk add 83420000 DTAddr 0x95b1d718
+Failed to read the fuse: 9
+Error Code 0x2
+QbHandleRatchetFuseBurning: Failed with error code:0x2
+Kernel Cmdline:  rootwait ip=off ro console=ttyS0,115200n8 no_console_suspend=1 tegra_keep_boot_clocks bootpart=kernel-a envpart=2 sdhci_tegra.en_boot_part_access=1 model=HW25B mtdparts=mtd0:65536K@0K(whole_device),524288@0(stuff),524288@20709376(env),262144@21233664(recovery-linux-dtb),262144@21495808(kernel-a-dtb),262144@21757952(kernel-b-dtb),11534336@22020096(recovery-linux),12582912@33554432(kernel-a),3145728@46137344(kernel-a-initramfs),12582912@49283072(kernel-b),3145728@61865984(kernel-b-initramfs) tegraid=18.1.2.0.0 qbcommit=0758df3a560e0b5f885d47244209c54717649ebb lp0_vec=0x10000@0xf7ff0000 ratchet_status=0x2 earlycon=uart8250,mmio32,0x03110000 bl_prof_dataptr=65536@0x0f7fe0000
+jumping to kernel at 80080000 (virtual 80080000)
+device.c 204 -1778253674
