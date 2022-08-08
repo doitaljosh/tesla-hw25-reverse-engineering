@@ -1,4 +1,4 @@
-##Flash map:
+## Flash map:
 
 | ID | Name | Offset | Length |
 | -- | ---- | ------ | ------ |
