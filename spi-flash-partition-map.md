@@ -25,7 +25,7 @@
 | 20 | adsp-fw | 0xac0000 | 0x200000 | Audio DSP firmware |
 | 21 | adsp-fw-b | 0xcc0000 | 0x200000 | ADSP FW backup |
 | 22 | cpu-bootloader | 0xec0000 | 0x280000 | Quickboot loader |
-| 23 | cpu-bootloader-dtb | 0xf00000 | 0x40000 | QB device tree block |
+| 23 | cpu-bootloader-dtb | 0xf00000 | 0x40000 | QB device tree blob |
 | 24 | secure-os | 0xf40000 | 0x200000 | Trusted OS image |
 | 25 | secure-os-b | 0x1140000 | 0x200000 | TOS backup |
 | 26 | eks | 0x1340000 | 0x40000 | Encrypted keys |
