@@ -28,9 +28,8 @@ print_welcome() {
 }
 
 verify_magic() {
-	HEADER=$(xxd -p -l 4 $1)
-	echo "Header is: ${HEADER}"
-	if [[ "$HEADER" == "424f4f54" || "$HEADER" == "47534856" ]]; then
+	MAGIC=$(xxd -p -l 4 $1)
+	if [[ "$MAGIC" == "424f4f54" || "$MAGIC" == "47534856" ]]; then
 		MAGIC_IS_VALID=true
 	else
 		MAGIC_IS_VALID=false
