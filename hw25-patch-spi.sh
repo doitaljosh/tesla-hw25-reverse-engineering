@@ -3,6 +3,7 @@
 FLASH_IMAGE=$1
 DD_BS='512'
 MAGIC_IS_VALID=false
+USR_CONFIRM="n"
 
 DTB_A_OFFSET="0x1480000"
 DTB_B_OFFSET="0x14c0000"
@@ -84,33 +85,41 @@ erase_all() {
 print_welcome
 
 if [ "$2" ]; then
-	if [[ "$2" == "erase-all" ]]; then
-		erase_all
+	echo "Are you sure you want to proceed? Press (y) to confirm."
+	read USR_CONFIRM
+	if [[ "$USR_CONFIRM" == "y" ]]; then
+		echo ""
+		if [[ "$2" == "erase-all" ]]; then
+			erase_all
+		else
+			erase_then_write $2 $DTB_A_OFFSET $DTB_A_SIZE
+		fi
+
+		if [ "$3" ]; then
+		        erase_then_write $3 $KERNEL_A_OFFSET $KERNEL_A_SIZE
+		fi
+
+		if [ "$4" ]; then
+		        erase_then_write $4 $INITRAMFS_A_OFFSET $INITRAMFS_A_SIZE
+		fi
+
+		if [ "$5" ]; then
+		        erase_then_write $5 $DTB_B_OFFSET $DTB_B_SIZE
+		fi
+
+		if [ "$6" ]; then
+		        erase_then_write $6 $KERNEL_B_OFFSET $KERNEL_B_SIZE
+		fi
+
+		if [ "$7" ]; then
+		        erase_then_write $7 $INITRAMFS_B_OFFSET $INITRAMFS_B_SIZE
+		fi
 	else
-		erase_then_write $2 $DTB_A_OFFSET $DTB_A_SIZE
+		echo "Cancelling operation"
 	fi
 else
 	echo "At least two arguments are required."
-	echo "Usage: ${0} image kernel-a-dtb kernel-a kernel-a-initramfs kernel-b-dtb kernel-b kernel-b-initramfs"
-	echo "       ${0} image erase-all"
-fi
+        echo "Usage: ${0} image kernel-a-dtb kernel-a kernel-a-initramfs kernel-b-dtb kernel-b kernel-b-initramfs"
+        echo "       ${0} image erase-all"
 
-if [ "$3" ]; then
-	erase_then_write $3 $KERNEL_A_OFFSET $KERNEL_A_SIZE
-fi
-
-if [ "$4" ]; then
-	erase_then_write $4 $INITRAMFS_A_OFFSET $INITRAMFS_A_SIZE
-fi
-
-if [ "$5" ]; then
-        erase_then_write $5 $DTB_B_OFFSET $DTB_B_SIZE
-fi
-
-if [ "$6" ]; then
-        erase_then_write $6 $KERNEL_B_OFFSET $KERNEL_B_SIZE
-fi
-
-if [ "$7" ]; then
-        erase_then_write $7 $INITRAMFS_B_OFFSET $INITRAMFS_B_SIZE
 fi
