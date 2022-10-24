@@ -5,8 +5,8 @@
 | 0 | bct | 0x0 | 0x80000 | Boot configuration table |
 | 1 | mb1-bootloader | 0x80000 | 0x40000 | Microboot 1st stage bootloader |
 | 2 | mb1-bootloader-r | 0xc0000 | 0x40000 | MB1 backup |
-| 3 | mb1-bootloader-bct | 0x100000 | 0x40000 | MB1 boot configuration table |
-| 4 | mb1-bootloader-bct-r | 0x140000 | 0x40000 | MB1 BCT backup |
+| 3 | mb1-bct | 0x100000 | 0x40000 | MB1 boot configuration table |
+| 4 | mb1-bct-r | 0x140000 | 0x40000 | MB1 BCT backup |
 | 5 | fuse-bypass | 0x180000 | 0x40000 | Fuse bypass area |
 | 6 | mb2-bootloader | 0x1c0000 | 0x40000 | Microboot 2nd stage bootloader |
 | 7 | mb2-bootloader-r | 0x200000 | 0x40000 | MB2 backup |
