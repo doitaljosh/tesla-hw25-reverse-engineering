@@ -23,8 +23,8 @@
 | 18 | sce-fw-r | 0xa80000 | 0x40000 | SCE FW backup |
 | 19 | adsp-fw | 0xac0000 | 0x200000 | Audio DSP firmware |
 | 20 | adsp-fw-r | 0xcc0000 | 0x200000 | ADSP FW backup |
-| 21 | cpu-bootloader | 0xec0000 | 0x40000 | Quickboot loader |
-| 22 | cpu-bootloader-r | 0xf00000 | 0x40000 | QB device tree blob |
+| 21 | cpu-bootloader | 0xec0000 | 0x40000 | CPU bootloader |
+| 22 | cpu-bootloader-r | 0xf00000 | 0x40000 | CPU bootloader backup |
 | 23 | secure-os | 0xf40000 | 0x200000 | Trusted OS image |
 | 24 | secure-os-r | 0x1140000 | 0x200000 | TOS backup |
 | 25 | eks | 0x1340000 | 0x40000 | Encrypted keys |
