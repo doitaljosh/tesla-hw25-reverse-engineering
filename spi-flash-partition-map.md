@@ -39,13 +39,13 @@
 | 35 | kernel-b | 0x2f00000 | 0xc00000 | Backup Linux kernel |
 | 36 | kernel-b-initramfs | 0x3b00000 | 0x300000 | Backup ramdisk |
 | 37 | mtdoops | 0x3e00000 | 0x200000 | Bad blocks reserved area |
-| 38 | fs-gp1 |  |  | GPT |
 
 ## eMMC Flash map:
 # Chip size = 31268519424
 | ID | Name | Offset | Length | Description |
 | -- | ---- | ------ | ------ | ----------- |
-| 39 | rootfs-a | 0x0 | 0x40040000 | Primary root filesystem |
+| 38 | fs-gp1 | 0x0 | 0x40000 | ??? |
+| 39 | rootfs-a | 0x40000 | 0x40000000 | Primary root filesystem |
 | 40 | rootfs-b | 0x40040000 | 0x40000000 | Secondary root filesystem |
 | 41 | var | 0x8004000 | 0x40000000 | /var |
 | 42 | home | 0xc0040000 | 0x680000000 | /home |
