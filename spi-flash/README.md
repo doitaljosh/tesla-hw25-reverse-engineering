@@ -1,7 +1,7 @@
 # SPI flash
 
 ## Test point and ball mapping
-![Pinout](https://github.com/doitaljosh/tesla-hw25-reverse-engineering/blob/main/hw25-qspi-test-points.jpg)
+![Pinout](https://github.com/doitaljosh/tesla-hw25-reverse-engineering/blob/main/spi-flash/hw25-qspi-test-points.jpg)
 
 ## Scripts:
 
