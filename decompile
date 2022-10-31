@@ -6,10 +6,12 @@ FLASH_SIZE=67108864
 # Nvidia BCH header size
 # See https://docs.nvidia.com/drive/drive_os_5.1.6.1L/nvvib_docs/index.html#page/DRIVE_OS_Linux_SDK_Development_Guide/Bootloader/bootloader_bootflow.html
 BCH_SIZE="0x200"
+BOOTIMG_HDR_SIZE="0x200"
 
 # Output directory structure
 OUT_DIR="${PWD}/${1}_extracted"
 DTS_DIR="${OUT_DIR}/dts"
+KDIR="${OUT_DIR}/kernel"
 
 # Extract a section of a binary given an IF, OF, offset in hex, length in hex
 extract_section() {
@@ -52,11 +54,11 @@ extract_all() {
 	extract_section $1 recovery-linux-dtb.bin 0x1440000 0x40000
 	extract_section $1 kernel-a-dtb.bin 0x1480000 0x40000
 	extract_section $1 kernel-b-dtb.bin 0x14c0000 0x40000
-	extract_section $1 recovery-linux.img 0x1500000 0xb00000
-	extract_section $1 kernel-a.img 0x2000000 0xc00000
-	extract_section $1 kernel-a-initramfs.img 0x2c00000 0x300000
-	extract_section $1 kernel-b.img 0x2f00000 0xc00000
-	extract_section $1 kernel-b-initramfs.img 0x3b00000 0x300000
+	extract_section $1 recovery-linux.bin 0x1500000 0xb00000
+	extract_section $1 kernel-a.bin 0x2000000 0xc00000
+	extract_section $1 kernel-a-initramfs.bin 0x2c00000 0x300000
+	extract_section $1 kernel-b.bin 0x2f00000 0xc00000
+	extract_section $1 kernel-b-initramfs.bin 0x3b00000 0x300000
 }
 
 # Remove file extension
@@ -64,14 +66,34 @@ remove_ext() {
 	cut -f 1 -d '.' $1
 }
 
-# Remove the Nvidia BCH header from a dtb partition
-# file then decompile the resulting DTB to a DTS
+# Strip BCH from a binary
+strip_bch() {
+	dd if=$1 of=$2 bs=32 skip=$(($BCH_SIZE/32))	
+}
+
+# Strip both the BOOT_IMAGE! header and BCH from a binary
+strip_bootimg_and_bch() {
+	dd if=$1 of=$2 bs=32 skip=$((($BOOTIMG_HDR_SIZE+$BCH_SIZE)/32))
+}
+
+# Strip the BCH from a DTB partition then
+# decompile the resulting DTB to a DTS
 dtb_bin_to_dts() {
 	DTB=$(echo $1 | remove_ext).dtb
 	DTS=$(echo $1 | remove_ext).dts
-	echo "Decompiling to ${DTS}"
-	dd if=$OUT_DIR/$1 of=$DTS_DIR/$DTB bs=32 skip=$(($BCH_SIZE/32))
+	echo "Decompiling ${1}"
+	strip_bch $OUT_DIR/$1 $DTS_DIR/$DTB
 	dtc -I dtb -O dts -o $DTS_DIR/$DTS $DTS_DIR/$DTB
+}
+
+# Strip the BOOT_IMAGE! and BCH from a kernel partition then
+# decompress it
+kernel_bin_to_image() {
+	KLZF=$(echo $1 | remove_ext).lzf
+	KIMG=$(echo $1 | remove_ext)
+	echo "Uncompressing ${1}"
+	strip_bootimg_and_bch $OUT_DIR/$1 $KDIR/$KLZF
+	python3 $PWD/lzf_decompress.py $KDIR/$KLZF $KDIR/$KIMG
 }
 
 # Create the directory structure if it doesn't exist
@@ -80,6 +102,9 @@ if [ ! -d $OUT_DIR ]; then
 fi
 if [ ! -d $DTS_DIR ]; then
         mkdir $DTS_DIR
+fi
+if [ ! -d $KDIR ]; then
+	mkdir $KDIR
 fi
 
 # Extract all partitions and DTS from ROM dump
@@ -95,6 +120,16 @@ if [[ $# -ne 0 ]]; then
 		dtb_bin_to_dts recovery-linux-dtb.bin
 		dtb_bin_to_dts kernel-a-dtb.bin
 		dtb_bin_to_dts kernel-b-dtb.bin
+		
+		if [[ $(pip3 list | grep lzf | awk '{print $1}') == "python-lzf" ]]; then
+			echo "extracting kernel images..."
+			
+			kernel_bin_to_image recovery-linux.bin
+			kernel_bin_to_image kernel-a.bin
+			kernel_bin_to_image kernel-b.bin
+		else
+			echo "python-lzf not installed. Skipped extracting kernel images."
+		fi
 	else
 		echo "error: file size of dump must be ${FLASH_SIZE}"
 	fi
