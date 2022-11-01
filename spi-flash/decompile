@@ -5,7 +5,8 @@ FLASH_SIZE=67108864
 
 # Nvidia BCH header size
 # See https://docs.nvidia.com/drive/drive_os_5.1.6.1L/nvvib_docs/index.html#page/DRIVE_OS_Linux_SDK_Development_Guide/Bootloader/bootloader_bootflow.html
-BCH_SIZE="0x200"
+BCH_SIZE_FW="0x190"
+BCH_SIZE_LNX="0x200"
 BOOTIMG_HDR_SIZE="0x200"
 
 # Output directory structure
@@ -67,8 +68,16 @@ remove_ext() {
 }
 
 # Strip BCH from a binary
+# Nvidia uses two different sizes for firmware and kernel binaries
 strip_bch() {
-	dd if=$1 of=$2 bs=32 skip=$(($BCH_SIZE/32))	
+	case $3 in
+		fw)
+			dd if=$1 of=$2 bs=16 skip=$(($BCH_SIZE_FW/16))
+			;;
+		lnx)
+			dd if=$1 of=$2 bs=16 skip=$(($BCH_SIZE_LNX/16))
+			;;
+	esac
 }
 
 # Strip both the BOOT_IMAGE! header and BCH from a binary
@@ -82,7 +91,7 @@ dtb_bin_to_dts() {
 	DTB=$(echo $1 | remove_ext).dtb
 	DTS=$(echo $1 | remove_ext).dts
 	echo "Decompiling ${1}"
-	strip_bch $OUT_DIR/$1 $DTS_DIR/$DTB
+	strip_bch $OUT_DIR/$1 $DTS_DIR/$DTB $2
 	dtc -I dtb -O dts -o $DTS_DIR/$DTS $DTS_DIR/$DTB
 }
 
@@ -116,10 +125,10 @@ if [[ $# -ne 0 ]]; then
 
 		echo "decompiling device trees..."
 
-		dtb_bin_to_dts bpmp-fw-dtb.bin
-		dtb_bin_to_dts recovery-linux-dtb.bin
-		dtb_bin_to_dts kernel-a-dtb.bin
-		dtb_bin_to_dts kernel-b-dtb.bin
+		dtb_bin_to_dts bpmp-fw-dtb.bin fw
+		dtb_bin_to_dts recovery-linux-dtb.bin lnx
+		dtb_bin_to_dts kernel-a-dtb.bin lnx
+		dtb_bin_to_dts kernel-b-dtb.bin lnx
 		
 		if [[ $(pip3 list | grep lzf | awk '{print $1}') == "python-lzf" ]]; then
 			echo "extracting kernel images..."
