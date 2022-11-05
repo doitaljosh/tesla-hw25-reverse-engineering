@@ -137,7 +137,7 @@ if [[ $# -ne 0 ]]; then
 			kernel_bin_to_image kernel-a.bin
 			kernel_bin_to_image kernel-b.bin
 		else
-			echo "python-lzf not installed. Skipped extracting kernel images."
+			echo "python3-lzf not installed. Skipped extracting kernel images."
 		fi
 	else
 		echo "error: file size of dump must be ${FLASH_SIZE}"
