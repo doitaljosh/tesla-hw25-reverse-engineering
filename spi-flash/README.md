@@ -15,3 +15,11 @@
 ### patch-image
 #### patch a given SPI flash image with new kernels/dtbs/initrds
 ```./patch-image image kernel-a-dtb kernel-a kernel-a-initramfs kernel-b-dtb kernel-b kernel-b-initramfs```
+
+### Example
+[Google Drive](https://drive.google.com/file/d/19GVI92Pjh3grQjPpLlgB7n6iioEYzzW4/view?usp=share_link)
+1. Download the file from Google Drive.
+2. Copy the extracted file to this directory.
+3. Run the decryption script on the file to decrypt/extract it: ```./decrypt file_downloaded_from_drive.enc```
+4. Run ```./decompile decrypted_file.bin```
+NOTE: password is ```$p4C3b@11$```
