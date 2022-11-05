@@ -4,7 +4,7 @@ ENCFILE=$1
 OUTDIR="${PWD}/"
 
 # Check for required binaries
-if ! [ -x "$(command -v openssl)" && -x "$(command -v tar)" ]; then
+if ! [[ -x "$(command -v openssl)" && -x "$(command -v tar)" ]]; then
 	echo "Please ensure that openssl and tar are installed."
 	exit 1
 fi
@@ -14,3 +14,5 @@ dec() {
 	openssl enc -aes-256-cbc -d -in $ENCFILE | tar -xz
 	echo "Now copy the extracted bin to ${PWD}, and run ./decompile to dump partitions."
 }
+
+dec
