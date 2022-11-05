@@ -106,21 +106,25 @@ kernel_bin_to_image() {
 }
 
 # Create the directory structure if it doesn't exist
-if [ ! -d $OUT_DIR ]; then
-        mkdir $OUT_DIR
-fi
-if [ ! -d $DTS_DIR ]; then
-        mkdir $DTS_DIR
-fi
-if [ ! -d $KDIR ]; then
-	mkdir $KDIR
-fi
+mkdirs() {
+	if [ ! -d $OUT_DIR ]; then
+	        mkdir $OUT_DIR
+	fi
+	if [ ! -d $DTS_DIR ]; then
+	        mkdir $DTS_DIR
+	fi
+	if [ ! -d $KDIR ]; then
+		mkdir $KDIR
+	fi
+}
 
 # Extract all partitions and DTS from ROM dump
 echo "extracting images from ${1}..."
 
 if [[ $# -ne 0 ]]; then
 	if [[ $(wc -c $1 | awk '{print $1}') == $FLASH_SIZE ]]; then
+		mkdirs
+		
 		extract_all $1
 
 		echo "decompiling device trees..."
