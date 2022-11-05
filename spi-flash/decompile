@@ -137,7 +137,13 @@ if [[ $# -ne 0 ]]; then
 			kernel_bin_to_image kernel-a.bin
 			kernel_bin_to_image kernel-b.bin
 		else
-			echo "lzf is not installed. Install by running pip3 install lzf"
+			read -p "lzf is not installed. Do you want to install it? [y/n]" response
+			
+			case $response in
+				y) pip3 install lzf;;
+				*) echo "Exiting... Install lzf by running pip3 install lzf";
+				   exit 1;;
+			esac
 		fi
 	else
 		echo "error: file size of dump must be ${FLASH_SIZE}"
