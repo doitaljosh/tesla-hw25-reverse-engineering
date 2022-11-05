@@ -144,7 +144,8 @@ if [[ $# -ne 0 ]]; then
 			read -p "lzf is not installed. Do you want to install it? [y/n]" response
 			
 			case $response in
-				y) pip3 install lzf;;
+				y) pip3 install lzf;
+				   echo "Done installing lzf. Now restart the script.";;
 				   
 				*) echo "Exiting... Install lzf by running pip3 install lzf, then rerun this script";
 				   exit 1;;
