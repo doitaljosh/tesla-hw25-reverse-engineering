@@ -1,0 +1,543 @@
+/dts-v1/;
+
+/ {
+	compatible = "brcm,bcm2835";
+
+	fragment@0 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@1 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@2 {
+		target-path = "spi1/spidev@0";
+
+		__dormant__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@3 {
+		target-path = "spi1/spidev@1";
+
+		__dormant__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@4 {
+		target-path = "spi1/spidev@2";
+
+		__dormant__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@5 {
+		target-path = "spi2/spidev@0";
+
+		__dormant__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@6 {
+		target-path = "spi2/spidev@1";
+
+		__dormant__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@7 {
+		target-path = "spi2/spidev@2";
+
+		__dormant__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@8 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "okay";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+
+			spi_nor@0 {
+				#address-cells = <0x01>;
+				#size-cells = <0x01>;
+				compatible = "jedec,spi-nor";
+				reg = <0x00>;
+				spi-max-frequency = <8000000>;
+				phandle = <0x01>;
+
+				partition@0 {
+                                        label = "whole_device";
+                                        reg = <0x00 0x4000000>;
+                                };
+
+                                partition@1 {
+                                        label = "bct";
+                                        reg = <0x00 0x80000>;
+                                };
+                                
+                                partition@2 {
+                                	label = "mb1-bootloader";
+                                	reg = <0x80000 0x40000>;
+                                };
+                                
+                                partition@3 {
+                                	label = "mb1-bootloader-r";
+                                	reg = <0xc0000 0x40000>;
+                                };
+                                
+                                partition@4 {
+                                	label = "mb1-bct";
+                                	reg = <0x100000 0x40000>;
+                                };
+                                
+                                partition@5 {
+                                	label = "mb1-bct-r";
+                                	reg = <0x140000 0x40000>;
+                                };
+                                
+                                partition@6 {
+                                	label = "fuse-bypass";
+                                	reg = <0x180000 0x40000>;
+                                };
+                                
+                                partition@7 {
+                                	label = "mb2-bootloader";
+                                	reg = <0x1c0000 0x40000>;
+                                };
+                                
+                                partition@8 {
+                                	label = "mb2-bootloader-r";
+                                	reg = <0x200000 0x40000>;
+                                };
+                                
+                                partition@9 {
+                                	label = "mts-preboot";
+                                	reg = <0x240000 0x40000>;
+                                };
+                                
+                                partition@10 {
+                                	label = "mts-preboot-r";
+                                	reg = <0x280000 0x40000>;
+                                };
+                                
+                                partition@11 {
+                                	label = "mts-bootpack";
+                                	reg = <0x2c0000 0x280000>;
+                                };
+                                
+                                partition@12 {
+                                	label = "mts-bootpack-r";
+                                	reg = <0x540000 0x280000>;
+                                };
+                                
+                                partition@13 {
+                                	label = "pt";
+                                	reg = <0x7c0000 0x80000>;
+                                };
+                                
+                                partition@14 {
+                                	label = "bpmp-fw";
+                                	reg = <0x840000 0xc0000>;
+                                };
+                                
+                                partition@15 {
+                                	label = "bpmp-fw-r";
+                                	reg = <0x900000 0xc0000>;
+                                };
+                                
+                                partition@16 {
+                                	label = "bpmp-fw-dtb";
+                                	reg = <0x9c0000 0x40000>;
+                                };
+                                
+                                partition@17 {
+                                	label = "bpmp-fw-dtb-r";
+                                	reg = <0xa00000 0x40000>;
+                                };
+                                
+                                partition@18 {
+                                	label = "sce-fw";
+                                	reg = <0xa40000 0x40000>;
+                                };
+                                
+                                partition@19 {
+                                	label = "sce-fw-r";
+                                	reg = <0xa80000 0x40000>;
+                                };
+                                
+                                partition@20 {
+                                	label = "adsp-fw";
+                                	reg = <0xac0000 0x200000>;
+                                };
+                                
+                                partition@21 {
+                                	label = "adsp-fw-r";
+                                	reg = <0xcc0000 0x200000>;
+                                };
+                                
+                                partition@22 {
+                                	label = "cpu-bootloader";
+                                	reg = <0xec0000 0x40000>;
+                                };
+                                
+                                partition@23 {
+                                	label = "cpu-bootloader-r";
+                                	reg = <0xf00000 0x40000>;
+                                };
+                                
+                                partition@24 {
+                                	label = "secure-os";
+                                	reg = <0xf40000 0x200000>;
+                                };
+                                
+                                partition@25 {
+                                	label = "secure-os-r";
+                                	reg = <0x1140000 0x200000>;
+                                };
+                                
+                                partition@26 {
+                                	label = "eks";
+                                	reg = <0x1340000 0x40000>;
+                                };
+                                
+                                partition@27 {
+                                	label = "eks-r";
+                                	reg = <0x1380000 0x40000>;
+                                };
+                                
+                                partition@28 {
+                                        label = "env";
+                                        reg = <0x13c0000 0x80000>;
+                                };
+
+                                partition@29 {
+                                        label = "recovery-linux-dtb";
+                                        reg = <0x1440000 0x40000>;
+                                };
+
+                                partition@30 {
+                                        label = "kernel-a-dtb";
+                                        reg = <0x1480000 0x40000>;
+                                };
+
+                                partition@31 {
+                                        label = "kernel-b-dtb";
+                                        reg = <0x14c0000 0x40000>;
+                                };
+
+                                partition@32 {
+                                        label = "recovery-linux";
+                                        reg = <0x1500000 0xb00000>;
+                                };
+
+                                partition@33 {
+                                        label = "kernel-a";
+                                        reg = <0x2000000 0xf00000>;
+                                };
+                                
+                                partition@34 {
+                                	label = "kernel-a-initramfs";
+                                	reg = <0x2c00000 0x300000>;
+                                };
+
+                                partition@35 {
+                                        label = "kernel-b";
+                                        reg = <0x2f00000 0xf00000>;
+                                };
+                                
+                                partition@36 {
+                                	label = "kernel-b-initramfs";
+                                	reg = <0x3b00000 0x300000>;
+                                };
+			};
+		};
+	};
+
+	fragment@9 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "okay";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+
+			spi_nor@1 {
+				#address-cells = <0x01>;
+				#size-cells = <0x01>;
+				compatible = "jedec,spi-nor";
+				reg = <0x01>;
+				spi-max-frequency = <0x7a120>;
+				phandle = <0x02>;
+			};
+		};
+	};
+
+	fragment@10 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "okay";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+
+			spi_nor@0 {
+				#address-cells = <0x01>;
+				#size-cells = <0x01>;
+				compatible = "jedec,spi-nor";
+				reg = <0x00>;
+				spi-max-frequency = <0x7a120>;
+				phandle = <0x03>;
+			};
+		};
+	};
+
+	fragment@11 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "okay";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+
+			spi_nor@1 {
+				#address-cells = <0x01>;
+				#size-cells = <0x01>;
+				compatible = "jedec,spi-nor";
+				reg = <0x01>;
+				spi-max-frequency = <0x7a120>;
+				phandle = <0x04>;
+			};
+		};
+	};
+
+	fragment@12 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "okay";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+
+			spi_nor@2 {
+				#address-cells = <0x01>;
+				#size-cells = <0x01>;
+				compatible = "jedec,spi-nor";
+				reg = <0x02>;
+				spi-max-frequency = <0x7a120>;
+				phandle = <0x05>;
+			};
+		};
+	};
+
+	fragment@13 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "okay";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+
+			spi_nor@0 {
+				#address-cells = <0x01>;
+				#size-cells = <0x01>;
+				compatible = "jedec,spi-nor";
+				reg = <0x00>;
+				spi-max-frequency = <0x7a120>;
+				phandle = <0x06>;
+			};
+		};
+	};
+
+	fragment@14 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "okay";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+
+			spi_nor@1 {
+				#address-cells = <0x01>;
+				#size-cells = <0x01>;
+				compatible = "jedec,spi-nor";
+				reg = <0x01>;
+				spi-max-frequency = <0x7a120>;
+				phandle = <0x07>;
+			};
+		};
+	};
+
+	fragment@15 {
+		target = <0xffffffff>;
+
+		__dormant__ {
+			status = "okay";
+			#address-cells = <0x01>;
+			#size-cells = <0x00>;
+
+			spi_nor@2 {
+				#address-cells = <0x01>;
+				#size-cells = <0x01>;
+				compatible = "jedec,spi-nor";
+				reg = <0x02>;
+				spi-max-frequency = <0x7a120>;
+				phandle = <0x08>;
+			};
+		};
+	};
+
+	fragment@16 {
+		target = <0x01>;
+
+		__dormant__ {
+			m25p,fast-read;
+		};
+	};
+
+	fragment@17 {
+		target = <0x02>;
+
+		__dormant__ {
+			m25p,fast-read;
+		};
+	};
+
+	fragment@18 {
+		target = <0x03>;
+
+		__dormant__ {
+			m25p,fast-read;
+		};
+	};
+
+	fragment@19 {
+		target = <0x04>;
+
+		__dormant__ {
+			m25p,fast-read;
+		};
+	};
+
+	fragment@20 {
+		target = <0x05>;
+
+		__dormant__ {
+			m25p,fast-read;
+		};
+	};
+
+	fragment@21 {
+		target = <0x06>;
+
+		__dormant__ {
+			m25p,fast-read;
+		};
+	};
+
+	fragment@22 {
+		target = <0x07>;
+
+		__dormant__ {
+			m25p,fast-read;
+		};
+	};
+
+	fragment@23 {
+		target = <0x08>;
+
+		__dormant__ {
+			m25p,fast-read;
+		};
+	};
+
+	__overrides__ {
+		flash-spi0-0 = [00 00 00 00 2b 30 2b 38 00];
+		flash-spi0-1 = [00 00 00 00 2b 31 2b 39 00];
+		flash-spi1-0 = [00 00 00 00 2b 32 2b 31 30 00];
+		flash-spi1-1 = [00 00 00 00 2b 33 2b 31 31 00];
+		flash-spi1-2 = [00 00 00 00 2b 34 2b 31 32 00];
+		flash-spi2-0 = [00 00 00 00 2b 35 2b 31 33 00];
+		flash-spi2-1 = [00 00 00 00 2b 36 2b 31 34 00];
+		flash-spi2-2 = [00 00 00 00 2b 37 2b 31 35 00];
+		flash-fastr-spi0-0 = "\0\0\0\0+0+8+16";
+		flash-fastr-spi0-1 = "\0\0\0\0+1+9+17";
+		flash-fastr-spi1-0 = "\0\0\0\0+2+10+18";
+		flash-fastr-spi1-1 = "\0\0\0\0+3+11+19";
+		flash-fastr-spi1-2 = "\0\0\0\0+4+12+20";
+		flash-fastr-spi2-0 = "\0\0\0\0+5+13+21";
+		flash-fastr-spi2-1 = "\0\0\0\0+6+14+22";
+		flash-fastr-spi2-2 = "\0\0\0\0+7+15+23";
+	};
+
+	__symbols__ {
+		spi_nor_00 = "/fragment@8/__dormant__/spi_nor@0";
+		spi_nor_01 = "/fragment@9/__dormant__/spi_nor@1";
+		spi_nor_10 = "/fragment@10/__dormant__/spi_nor@0";
+		spi_nor_11 = "/fragment@11/__dormant__/spi_nor@1";
+		spi_nor_12 = "/fragment@12/__dormant__/spi_nor@2";
+		spi_nor_20 = "/fragment@13/__dormant__/spi_nor@0";
+		spi_nor_21 = "/fragment@14/__dormant__/spi_nor@1";
+		spi_nor_22 = "/fragment@15/__dormant__/spi_nor@2";
+	};
+
+	__fixups__ {
+		spidev0 = "/fragment@0:target:0";
+		spidev1 = "/fragment@1:target:0";
+		spi0 = "/fragment@8:target:0\0/fragment@9:target:0";
+		spi1 = "/fragment@10:target:0\0/fragment@11:target:0\0/fragment@12:target:0";
+		spi2 = "/fragment@13:target:0\0/fragment@14:target:0\0/fragment@15:target:0";
+	};
+
+	__local_fixups__ {
+
+		fragment@16 {
+			target = <0x00>;
+		};
+
+		fragment@17 {
+			target = <0x00>;
+		};
+
+		fragment@18 {
+			target = <0x00>;
+		};
+
+		fragment@19 {
+			target = <0x00>;
+		};
+
+		fragment@20 {
+			target = <0x00>;
+		};
+
+		fragment@21 {
+			target = <0x00>;
+		};
+
+		fragment@22 {
+			target = <0x00>;
+		};
+
+		fragment@23 {
+			target = <0x00>;
+		};
+	};
+};
